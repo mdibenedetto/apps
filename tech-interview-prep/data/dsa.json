@@ -1,0 +1,884 @@
+{
+  "id": "dsa",
+  "title": "Data Structures & Algorithms",
+  "description": "Master the fundamental building blocks of coding interviews",
+  "icon": "Code",
+  "color": "dsa",
+  "introduction": "Data Structures and Algorithms form the backbone of technical interviews at top tech companies. Understanding these concepts helps you write efficient, scalable code and solve complex problems systematically. This section covers arrays, linked lists, trees, graphs, dynamic programming, sorting, heaps, and backtracking.",
+  "topics": [
+    {
+      "id": "arrays-strings",
+      "title": "Arrays & Strings",
+      "description": "Foundation of most coding problems",
+      "content": [
+        "Arrays and strings are the most fundamental data structures you'll encounter. They form the basis for understanding more complex structures and are featured in ~40% of coding interview questions.",
+        "",
+        "## Key Concepts",
+        "",
+        "**Time Complexity**",
+        "- Access: O(1)",
+        "- Search: O(n)",
+        "- Insertion: O(n)",
+        "- Deletion: O(n)",
+        "",
+        "**Common Techniques**",
+        "- Two Pointers",
+        "- Sliding Window",
+        "- Prefix Sum",
+        "- Hash Maps for O(1) lookups"
+      ],
+      "keyPoints": [
+        "Use two-pointer technique for sorted arrays",
+        "Sliding window for contiguous subarrays",
+        "Hash maps reduce O(n²) to O(n)",
+        "Consider edge cases: empty, single element, duplicates"
+      ],
+      "examples": [
+        {
+          "title": "Two Sum Problem",
+          "code": "function twoSum(nums: number[], target: number): number[] {\n  const map = new Map<number, number>();\n  for (let i = 0; i < nums.length; i++) {\n    const complement = target - nums[i];\n    if (map.has(complement)) {\n      return [map.get(complement)!, i];\n    }\n    map.set(nums[i], i);\n  }\n  return [];\n}",
+          "explanation": "Use a hash map to store seen values. For each element, check if its complement exists. Time: O(n), Space: O(n)"
+        },
+        {
+          "title": "Sliding Window Maximum",
+          "code": "function maxSlidingWindow(nums: number[], k: number): number[] {\n  const result: number[] = [];\n  const deque: number[] = [];\n  \n  for (let i = 0; i < nums.length; i++) {\n    while (deque.length && deque[0] < i - k + 1) deque.shift();\n    while (deque.length && nums[deque[deque.length - 1]] < nums[i]) deque.pop();\n    deque.push(i);\n    if (i >= k - 1) result.push(nums[deque[0]]);\n  }\n  return result;\n}",
+          "explanation": "Use a monotonic deque to maintain potential maximums. Time: O(n), Space: O(k)"
+        }
+      ],
+      "diagrams": [
+        {
+          "url": "/diagrams/two-pointer.png",
+          "caption": "Two Pointer Technique",
+          "alt": "Diagram showing two pointers moving towards each other in an array"
+        }
+      ]
+    },
+    {
+      "id": "linked-lists",
+      "title": "Linked Lists",
+      "description": "Dynamic data structures with pointer manipulation",
+      "content": [
+        "Linked lists are crucial for understanding memory management and pointer manipulation. They appear frequently in interviews, especially for testing your ability to handle edge cases.",
+        "",
+        "## Types of Linked Lists",
+        "",
+        "**Singly Linked List**",
+        "- Each node points to the next",
+        "- O(1) insertion/deletion at head",
+        "- O(n) access to arbitrary elements",
+        "",
+        "**Doubly Linked List**",
+        "- Nodes have prev and next pointers",
+        "- O(1) deletion when node reference is known",
+        "",
+        "**Circular Linked List**",
+        "- Last node points to first",
+        "- Useful for round-robin scheduling"
+      ],
+      "keyPoints": [
+        "Always handle null/undefined cases",
+        "Use dummy head node to simplify edge cases",
+        "Fast and slow pointer for cycle detection",
+        "Draw diagrams before coding!"
+      ],
+      "examples": [
+        {
+          "title": "Reverse Linked List",
+          "code": "function reverseList(head: ListNode | null): ListNode | null {\n  let prev = null;\n  let curr = head;\n  while (curr) {\n    const next = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = next;\n  }\n  return prev;\n}",
+          "explanation": "Iteratively reverse by updating next pointers. Track previous, current, and next nodes. Time: O(n), Space: O(1)"
+        }
+      ],
+      "diagrams": [
+        {
+          "url": "/diagrams/linked-list-reversal.png",
+          "caption": "Linked List Reversal Process",
+          "alt": "Step-by-step diagram of reversing a linked list"
+        }
+      ]
+    },
+    {
+      "id": "trees-graphs",
+      "title": "Trees & Graphs",
+      "description": "Hierarchical and network structures",
+      "content": [
+        "Trees and graphs are essential for representing hierarchical relationships and complex networks. They're heavily tested in interviews at companies like Google, Meta, and Amazon.",
+        "",
+        "## Binary Trees",
+        "",
+        "**Traversal Methods**",
+        "- Inorder (Left, Root, Right): Sorted order for BST",
+        "- Preorder (Root, Left, Right): Copy/serialize tree",
+        "- Postorder (Left, Right, Root): Delete tree",
+        "- Level-order: BFS with queue",
+        "",
+        "## Graphs",
+        "",
+        "**Representations**",
+        "- Adjacency List: Space efficient for sparse graphs",
+        "- Adjacency Matrix: O(1) edge lookup",
+        "",
+        "**Algorithms**",
+        "- DFS: Explore deeply first",
+        "- BFS: Level-by-level exploration",
+        "- Dijkstra: Shortest path",
+        "- Topological Sort: Dependency ordering"
+      ],
+      "keyPoints": [
+        "Choose traversal based on problem requirements",
+        "BFS for shortest path in unweighted graphs",
+        "DFS for exploring all paths",
+        "Watch for cycles in graphs"
+      ],
+      "examples": [
+        {
+          "title": "Binary Tree Level Order Traversal",
+          "code": "function levelOrder(root: TreeNode | null): number[][] {\n  if (!root) return [];\n  const result: number[][] = [];\n  const queue: TreeNode[] = [root];\n  \n  while (queue.length) {\n    const level: number[] = [];\n    const size = queue.length;\n    for (let i = 0; i < size; i++) {\n      const node = queue.shift()!;\n      level.push(node.val);\n      if (node.left) queue.push(node.left);\n      if (node.right) queue.push(node.right);\n    }\n    result.push(level);\n  }\n  return result;\n}",
+          "explanation": "Use BFS with a queue. Process nodes level by level, tracking the size at each level start."
+        }
+      ]
+    },
+    {
+      "id": "dynamic-programming",
+      "title": "Dynamic Programming",
+      "description": "Optimize recursive solutions with memoization",
+      "content": [
+        "Dynamic Programming (DP) is an optimization technique that solves complex problems by breaking them into simpler subproblems. It's considered one of the most challenging interview topics.",
+        "",
+        "## When to Use DP",
+        "",
+        "1. **Optimal Substructure**: Optimal solution contains optimal solutions to subproblems",
+        "2. **Overlapping Subproblems**: Same subproblems are solved multiple times",
+        "",
+        "## Approaches",
+        "",
+        "**Top-Down (Memoization)**",
+        "- Start with the main problem",
+        "- Recursively solve subproblems",
+        "- Cache results",
+        "",
+        "**Bottom-Up (Tabulation)**",
+        "- Start with smallest subproblems",
+        "- Build up to the solution",
+        "- Often more space-efficient"
+      ],
+      "keyPoints": [
+        "Identify the state variables",
+        "Define the recurrence relation",
+        "Start with brute force, then optimize",
+        "Consider space optimization"
+      ],
+      "examples": [
+        {
+          "title": "Climbing Stairs",
+          "code": "function climbStairs(n: number): number {\n  if (n <= 2) return n;\n  let prev2 = 1, prev1 = 2;\n  for (let i = 3; i <= n; i++) {\n    const curr = prev1 + prev2;\n    prev2 = prev1;\n    prev1 = curr;\n  }\n  return prev1;\n}",
+          "explanation": "Classic DP problem. Each step can be reached from n-1 or n-2. Optimize space by only keeping last two values."
+        }
+      ]
+    },
+    {
+      "id": "sorting-algorithms",
+      "title": "Sorting Algorithms",
+      "description": "Essential algorithms for organizing data efficiently",
+      "content": [
+        "Sorting is fundamental to computer science and appears in many interview problems. Understanding different sorting algorithms and their trade-offs is crucial.",
+        "",
+        "## Comparison-Based Sorting",
+        "",
+        "**Quick Sort**",
+        "- Average: O(n log n), Worst: O(n²)",
+        "- In-place, not stable",
+        "- Fastest in practice for most cases",
+        "",
+        "**Merge Sort**",
+        "- Always O(n log n)",
+        "- Stable, but O(n) extra space",
+        "- Great for linked lists",
+        "",
+        "**Heap Sort**",
+        "- Always O(n log n)",
+        "- In-place, not stable",
+        "- Useful when memory is limited",
+        "",
+        "## Non-Comparison Sorting",
+        "",
+        "**Counting Sort**: O(n + k) for integers in range [0, k]",
+        "**Radix Sort**: O(d × (n + k)) for d-digit numbers",
+        "**Bucket Sort**: O(n) average for uniformly distributed data"
+      ],
+      "keyPoints": [
+        "Quick Sort is fastest on average but O(n²) worst case",
+        "Merge Sort guarantees O(n log n) and is stable",
+        "Use counting/radix sort for integers in known range",
+        "Know space complexity trade-offs"
+      ],
+      "examples": [
+        {
+          "title": "Quick Sort Implementation",
+          "code": "function quickSort(arr: number[], low = 0, high = arr.length - 1): number[] {\n  if (low < high) {\n    const pivotIdx = partition(arr, low, high);\n    quickSort(arr, low, pivotIdx - 1);\n    quickSort(arr, pivotIdx + 1, high);\n  }\n  return arr;\n}\n\nfunction partition(arr: number[], low: number, high: number): number {\n  const pivot = arr[high];\n  let i = low - 1;\n  \n  for (let j = low; j < high; j++) {\n    if (arr[j] < pivot) {\n      i++;\n      [arr[i], arr[j]] = [arr[j], arr[i]];\n    }\n  }\n  [arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];\n  return i + 1;\n}",
+          "explanation": "Partition array around pivot, recursively sort subarrays. Average O(n log n), worst O(n²) with bad pivot choices."
+        },
+        {
+          "title": "Merge Sort Implementation",
+          "code": "function mergeSort(arr: number[]): number[] {\n  if (arr.length <= 1) return arr;\n  \n  const mid = Math.floor(arr.length / 2);\n  const left = mergeSort(arr.slice(0, mid));\n  const right = mergeSort(arr.slice(mid));\n  \n  return merge(left, right);\n}\n\nfunction merge(left: number[], right: number[]): number[] {\n  const result: number[] = [];\n  let i = 0, j = 0;\n  \n  while (i < left.length && j < right.length) {\n    if (left[i] <= right[j]) {\n      result.push(left[i++]);\n    } else {\n      result.push(right[j++]);\n    }\n  }\n  \n  return result.concat(left.slice(i)).concat(right.slice(j));\n}",
+          "explanation": "Divide array in half, recursively sort, then merge. Always O(n log n), stable, but uses O(n) extra space."
+        },
+        {
+          "title": "Counting Sort",
+          "code": "function countingSort(arr: number[], max: number): number[] {\n  const count = new Array(max + 1).fill(0);\n  const output = new Array(arr.length);\n  \n  // Count occurrences\n  for (const num of arr) count[num]++;\n  \n  // Cumulative count\n  for (let i = 1; i <= max; i++) count[i] += count[i - 1];\n  \n  // Build output array (reverse for stability)\n  for (let i = arr.length - 1; i >= 0; i--) {\n    output[count[arr[i]] - 1] = arr[i];\n    count[arr[i]]--;\n  }\n  \n  return output;\n}",
+          "explanation": "Count occurrences of each value, then place elements in correct positions. O(n + k) time and space where k is the range."
+        },
+        {
+          "title": "Bubble Sort",
+          "code": "function bubbleSort(arr: number[]): number[] {\n  const len = arr.length;\n  for (let i = 0; i < len; i++) {\n    for (let j = 0; j < len - 1 - i; j++) {\n      if (arr[j] > arr[j + 1]) {\n        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];\n      }\n    }\n  }\n  return arr;\n}",
+          "explanation": "Repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. O(n²) time."
+        },
+        {
+          "title": "Insertion Sort",
+          "code": "function insertionSort(arr: number[]): number[] {\n  for (let i = 1; i < arr.length; i++) {\n    const key = arr[i];\n    let j = i - 1;\n    while (j >= 0 && arr[j] > key) {\n      arr[j + 1] = arr[j];\n      j--;\n    }\n    arr[j + 1] = key;\n  }\n  return arr;\n}",
+          "explanation": "Builds the final sorted array one item at a time. Efficient for small data sets or nearly sorted data. O(n²) time."
+        }
+      ]
+    },
+    {
+      "id": "search-algorithms",
+      "title": "Search Algorithms",
+      "description": "Essential techniques for efficient data retrieval",
+      "content": [
+        "Searching is one of the most common operations in software. Choosing the right search algorithm depends heavily on the data structure (sorted vs unsorted). ",
+        "",
+        "## Core Algorithms",
+        "",
+        "**Binary Search**",
+        "- **Requirement**: Sorted Array.",
+        "- **Mechanism**: Divide and conquer. Compare target to middle element, eliminate half the search space.",
+        "- **Time**: O(log n).",
+        "- **Space**: O(1) iterative.",
+        "",
+        "**Linear Search**",
+        "- **Requirement**: Any List.",
+        "- **Mechanism**: Check every element one by one.",
+        "- **Time**: O(n).",
+        "",
+        "## Search Variations",
+        "",
+        "- **Lower Bound**: First index where val >= target.",
+        "- **Upper Bound**: First index where val > target.",
+        "- **Search in Rotated Sorted Array**: Modified binary search handling pivot."
+      ],
+      "keyPoints": [
+        "Binary Search requires sorted data",
+        "Overflow bug: mid = left + (right - left) / 2",
+        "Linear search is best for unsorted small lists",
+        "BFS/DFS are search algorithms for Graphs"
+      ],
+      "examples": [
+        {
+          "title": "Binary Search (Iterative)",
+          "code": "function binarySearch(nums: number[], target: number): number {\n  let left = 0, right = nums.length - 1;\n  while (left <= right) {\n    const mid = Math.floor(left + (right - left) / 2);\n    if (nums[mid] === target) return mid;\n    if (nums[mid] < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return -1;\n}",
+          "explanation": "Standard iterative binary search. mid calculation prevents integer overflow in other languages."
+        },
+        {
+          "title": "Search in Rotated Sorted Array",
+          "code": "function search(nums: number[], target: number): number {\n  let left = 0, right = nums.length - 1;\n  while (left <= right) {\n    const mid = Math.floor((left + right) / 2);\n    if (nums[mid] === target) return mid;\n    \n    // Check if left half is sorted\n    if (nums[left] <= nums[mid]) {\n      if (nums[left] <= target && target < nums[mid]) right = mid - 1;\n      else left = mid + 1;\n    } \n    // Right half must be sorted\n    else {\n      if (nums[mid] < target && target <= nums[right]) left = mid + 1;\n      else right = mid - 1;\n    }\n  }\n  return -1;\n}",
+          "explanation": "Check which half is sorted first, then decide whether the target lies in that half. O(log n)."
+        }
+      ]
+    },
+    {
+      "id": "heap-data-structure",
+      "title": "Heap Data Structure",
+      "description": "Priority queues and efficient min/max operations",
+      "content": [
+        "A heap is a complete binary tree that satisfies the heap property. It's the foundation for priority queues and is essential for many interview problems.",
+        "",
+        "## Types of Heaps",
+        "",
+        "**Min Heap**",
+        "- Parent ≤ Children",
+        "- Root is the minimum element",
+        "- Used for finding k largest elements",
+        "",
+        "**Max Heap**",
+        "- Parent ≥ Children",
+        "- Root is the maximum element",
+        "- Used for finding k smallest elements",
+        "",
+        "## Operations & Complexity",
+        "",
+        "- Insert: O(log n)",
+        "- Extract Min/Max: O(log n)",
+        "- Peek Min/Max: O(1)",
+        "- Heapify array: O(n)",
+        "",
+        "## Common Interview Problems",
+        "",
+        "- K-th largest/smallest element",
+        "- Merge K sorted lists",
+        "- Top K frequent elements",
+        "- Median from data stream"
+      ],
+      "keyPoints": [
+        "Use min heap to find k largest, max heap for k smallest",
+        "Heapify is O(n), not O(n log n)",
+        "Parent at i, children at 2i+1 and 2i+2",
+        "Priority queues are implemented with heaps"
+      ],
+      "examples": [
+        {
+          "title": "Min Heap Implementation",
+          "code": "class MinHeap {\n  private heap: number[] = [];\n  \n  private parent(i: number) { return Math.floor((i - 1) / 2); }\n  private leftChild(i: number) { return 2 * i + 1; }\n  private rightChild(i: number) { return 2 * i + 2; }\n  \n  insert(val: number): void {\n    this.heap.push(val);\n    this.bubbleUp(this.heap.length - 1);\n  }\n  \n  private bubbleUp(i: number): void {\n    while (i > 0 && this.heap[this.parent(i)] > this.heap[i]) {\n      [this.heap[i], this.heap[this.parent(i)]] = \n        [this.heap[this.parent(i)], this.heap[i]];\n      i = this.parent(i);\n    }\n  }\n  \n  extractMin(): number | undefined {\n    if (!this.heap.length) return undefined;\n    const min = this.heap[0];\n    this.heap[0] = this.heap.pop()!;\n    this.bubbleDown(0);\n    return min;\n  }\n  \n  private bubbleDown(i: number): void {\n    let smallest = i;\n    const left = this.leftChild(i);\n    const right = this.rightChild(i);\n    \n    if (left < this.heap.length && this.heap[left] < this.heap[smallest])\n      smallest = left;\n    if (right < this.heap.length && this.heap[right] < this.heap[smallest])\n      smallest = right;\n    \n    if (smallest !== i) {\n      [this.heap[i], this.heap[smallest]] = [this.heap[smallest], this.heap[i]];\n      this.bubbleDown(smallest);\n    }\n  }\n}",
+          "explanation": "Array-based min heap with O(log n) insert and extract operations. Parent-child relationships calculated via indices."
+        },
+        {
+          "title": "K-th Largest Element",
+          "code": "function findKthLargest(nums: number[], k: number): number {\n  // Use min heap of size k\n  const minHeap: number[] = [];\n  \n  const insert = (val: number) => {\n    minHeap.push(val);\n    let i = minHeap.length - 1;\n    while (i > 0) {\n      const parent = Math.floor((i - 1) / 2);\n      if (minHeap[parent] <= minHeap[i]) break;\n      [minHeap[i], minHeap[parent]] = [minHeap[parent], minHeap[i]];\n      i = parent;\n    }\n  };\n  \n  const extractMin = () => {\n    const min = minHeap[0];\n    minHeap[0] = minHeap.pop()!;\n    let i = 0;\n    while (true) {\n      let smallest = i;\n      const left = 2 * i + 1, right = 2 * i + 2;\n      if (left < minHeap.length && minHeap[left] < minHeap[smallest]) smallest = left;\n      if (right < minHeap.length && minHeap[right] < minHeap[smallest]) smallest = right;\n      if (smallest === i) break;\n      [minHeap[i], minHeap[smallest]] = [minHeap[smallest], minHeap[i]];\n      i = smallest;\n    }\n    return min;\n  };\n  \n  for (const num of nums) {\n    insert(num);\n    if (minHeap.length > k) extractMin();\n  }\n  \n  return minHeap[0];\n}",
+          "explanation": "Maintain a min heap of size k. After processing all elements, the root is the k-th largest. Time: O(n log k)"
+        },
+        {
+          "title": "Merge K Sorted Lists",
+          "code": "function mergeKLists(lists: ListNode[]): ListNode | null {\n  const minHeap: { val: number; node: ListNode }[] = [];\n  \n  // Initialize heap with first node from each list\n  for (const head of lists) {\n    if (head) pushHeap(minHeap, { val: head.val, node: head });\n  }\n  \n  const dummy = new ListNode(0);\n  let current = dummy;\n  \n  while (minHeap.length) {\n    const { node } = popHeap(minHeap);\n    current.next = node;\n    current = current.next;\n    \n    if (node.next) {\n      pushHeap(minHeap, { val: node.next.val, node: node.next });\n    }\n  }\n  \n  return dummy.next;\n}\n\n// Helper functions for min heap operations\nfunction pushHeap(heap, item) { /* bubble up */ }\nfunction popHeap(heap) { /* extract min, bubble down */ }",
+          "explanation": "Use min heap to always get the smallest current node. Time: O(n log k) where n is total nodes and k is number of lists."
+        }
+      ]
+    },
+    {
+      "id": "backtracking",
+      "title": "Backtracking",
+      "description": "Explore all possibilities systematically",
+      "content": [
+        "Backtracking is a general algorithmic technique that incrementally builds candidates and abandons them (backtracks) when they cannot lead to a valid solution.",
+        "",
+        "## Core Concept",
+        "",
+        "Backtracking = DFS + Pruning",
+        "",
+        "1. Make a choice",
+        "2. Recurse with that choice",
+        "3. Undo the choice (backtrack)",
+        "4. Try next option",
+        "",
+        "## When to Use Backtracking",
+        "",
+        "- Generate all permutations/combinations",
+        "- Solve constraint satisfaction problems",
+        "- Find all paths in a graph",
+        "- Puzzle solving (Sudoku, N-Queens)",
+        "",
+        "## Template",
+        "",
+        "```",
+        "function backtrack(state, choices):",
+        "    if isComplete(state):",
+        "        addToResults(state)",
+        "        return",
+        "    ",
+        "    for choice in choices:",
+        "        if isValid(choice):",
+        "            makeChoice(state, choice)",
+        "            backtrack(state, remainingChoices)",
+        "            undoChoice(state, choice)  // backtrack",
+        "```"
+      ],
+      "keyPoints": [
+        "Always undo changes after recursive call",
+        "Prune invalid paths early for efficiency",
+        "Track visited elements to avoid duplicates",
+        "Time complexity often exponential: O(n!) or O(2^n)"
+      ],
+      "examples": [
+        {
+          "title": "Generate Permutations",
+          "code": "function permute(nums: number[]): number[][] {\n  const result: number[][] = [];\n  const used = new Array(nums.length).fill(false);\n  \n  function backtrack(current: number[]) {\n    if (current.length === nums.length) {\n      result.push([...current]);\n      return;\n    }\n    \n    for (let i = 0; i < nums.length; i++) {\n      if (used[i]) continue;\n      \n      // Make choice\n      current.push(nums[i]);\n      used[i] = true;\n      \n      // Recurse\n      backtrack(current);\n      \n      // Backtrack (undo choice)\n      current.pop();\n      used[i] = false;\n    }\n  }\n  \n  backtrack([]);\n  return result;\n}",
+          "explanation": "Generate all n! permutations by trying each unused element at each position. Use 'used' array to track which elements are in current permutation."
+        },
+        {
+          "title": "Combination Sum",
+          "code": "function combinationSum(candidates: number[], target: number): number[][] {\n  const result: number[][] = [];\n  \n  function backtrack(start: number, remaining: number, current: number[]) {\n    if (remaining === 0) {\n      result.push([...current]);\n      return;\n    }\n    if (remaining < 0) return; // Pruning\n    \n    for (let i = start; i < candidates.length; i++) {\n      current.push(candidates[i]);\n      // Use 'i' not 'i+1' because we can reuse same element\n      backtrack(i, remaining - candidates[i], current);\n      current.pop(); // Backtrack\n    }\n  }\n  \n  backtrack(0, target, []);\n  return result;\n}",
+          "explanation": "Find all combinations that sum to target. Elements can be used multiple times. Pass 'start' index to avoid duplicates."
+        },
+        {
+          "title": "N-Queens Problem",
+          "code": "function solveNQueens(n: number): string[][] {\n  const result: string[][] = [];\n  const board: string[][] = Array(n).fill(null).map(() => Array(n).fill('.'));\n  \n  function isValid(row: number, col: number): boolean {\n    // Check column\n    for (let i = 0; i < row; i++) {\n      if (board[i][col] === 'Q') return false;\n    }\n    // Check upper-left diagonal\n    for (let i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {\n      if (board[i][j] === 'Q') return false;\n    }\n    // Check upper-right diagonal\n    for (let i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {\n      if (board[i][j] === 'Q') return false;\n    }\n    return true;\n  }\n  \n  function backtrack(row: number) {\n    if (row === n) {\n      result.push(board.map(r => r.join('')));\n      return;\n    }\n    \n    for (let col = 0; col < n; col++) {\n      if (!isValid(row, col)) continue;\n      \n      board[row][col] = 'Q';\n      backtrack(row + 1);\n      board[row][col] = '.'; // Backtrack\n    }\n  }\n  \n  backtrack(0);\n  return result;\n}",
+          "explanation": "Place N queens on NxN board so no two attack each other. Try each column in current row, validate, recurse, then backtrack."
+        },
+        {
+          "title": "Subsets (Power Set)",
+          "code": "function subsets(nums: number[]): number[][] {\n  const result: number[][] = [];\n  \n  function backtrack(start: number, current: number[]) {\n    // Add current subset (including empty)\n    result.push([...current]);\n    \n    for (let i = start; i < nums.length; i++) {\n      current.push(nums[i]);\n      backtrack(i + 1, current);\n      current.pop(); // Backtrack\n    }\n  }\n  \n  backtrack(0, []);\n  return result;\n}",
+          "explanation": "Generate all 2^n subsets. For each element, decide to include or exclude. Each path from root to any node represents a valid subset."
+        }
+      ]
+    },
+    {
+      "id": "stack",
+      "title": "Stack",
+      "description": "LIFO data structure for ordered operations",
+      "content": [
+        "A Stack is a Last-In-First-Out (LIFO) data structure. The last element added is the first one to be removed.",
+        "",
+        "## Key Operations",
+        "",
+        "**Push**: O(1) - Add element to top",
+        "**Pop**: O(1) - Remove element from top",
+        "**Peek/Top**: O(1) - View top element without removing",
+        "",
+        "## Common Use Cases",
+        "- Function call stack",
+        "- Expression evaluation (postfix, infix)",
+        "- Undo mechanisms",
+        "- Depth-First Search (DFS)",
+        "- Backtracking problems"
+      ],
+      "keyPoints": [
+        "All operations are O(1)",
+        "Can be implemented with arrays or linked lists",
+        "Essential for recursion understanding",
+        "Used in parsing and syntax checking"
+      ],
+      "examples": [
+        {
+          "title": "Valid Parentheses",
+          "code": "function isValid(s: string): boolean {\n  const stack: string[] = [];\n  const map: Record<string, string> = { ')': '(', '}': '{', ']': '[' };\n  \n  for (const char of s) {\n    if (char in map) {\n      if (stack.length === 0 || stack.pop() !== map[char]) return false;\n    } else {\n      stack.push(char);\n    }\n  }\n  return stack.length === 0;\n}",
+          "explanation": "Use stack to match opening and closing brackets. Push opening brackets, pop and compare on closing brackets."
+        }
+      ]
+    },
+    {
+      "id": "queue",
+      "title": "Queue",
+      "description": "FIFO data structure for sequential processing",
+      "content": [
+        "A Queue is a First-In-First-Out (FIFO) data structure. The first element added is the first one to be removed.",
+        "",
+        "## Key Operations",
+        "",
+        "**Enqueue**: O(1) - Add element to rear",
+        "**Dequeue**: O(1) - Remove element from front",
+        "**Peek/Front**: O(1) - View front element",
+        "",
+        "## Common Use Cases",
+        "- Breadth-First Search (BFS)",
+        "- Task scheduling",
+        "- Buffering (I/O)",
+        "- Order processing"
+      ],
+      "keyPoints": [
+        "FIFO principle",
+        "Can be implemented with arrays or linked lists",
+        "Circular queue prevents array shifting",
+        "Used in level-order tree traversal"
+      ],
+      "examples": [
+        {
+          "title": "Implement Queue using Stacks",
+          "code": "class MyQueue {\n  private stackIn: number[] = [];\n  private stackOut: number[] = [];\n  \n  enqueue(x: number): void {\n    this.stackIn.push(x);\n  }\n  \n  dequeue(): number {\n    if (this.stackOut.length === 0) {\n      while (this.stackIn.length > 0) {\n        this.stackOut.push(this.stackIn.pop()!);\n      }\n    }\n    return this.stackOut.pop()!;\n  }\n  \n  peek(): number {\n    if (this.stackOut.length === 0) {\n      while (this.stackIn.length > 0) {\n        this.stackOut.push(this.stackIn.pop()!);\n      }\n    }\n    return this.stackOut[this.stackOut.length - 1];\n  }\n}",
+          "explanation": "Use two stacks. stackIn for enqueue, stackOut for dequeue. Transfer elements when stackOut is empty."
+        }
+      ]
+    },
+    {
+      "id": "hashing",
+      "title": "Hashing",
+      "description": "Fast lookups using hash tables and hash maps",
+      "content": [
+        "Hashing uses a hash function to map keys to array indices for O(1) average-case lookup, insertion, and deletion.",
+        "",
+        "## Key Concepts",
+        "",
+        "**Hash Function**: Converts key to array index",
+        "**Collision Handling**:",
+        "- Chaining: Store multiple items at same index (linked list)",
+        "- Open Addressing: Find next available slot",
+        "",
+        "**Load Factor**: n/m (items/buckets). Rehash when > 0.75",
+        "",
+        "## Common Use Cases",
+        "- Caching",
+        "- Counting frequencies",
+        "- Finding duplicates",
+        "- Two Sum type problems"
+      ],
+      "keyPoints": [
+        "O(1) average lookup, insert, delete",
+        "O(n) worst case if many collisions",
+        "Hash maps are unordered",
+        "Perfect for reducing O(n²) to O(n)"
+      ],
+      "examples": [
+        {
+          "title": "Group Anagrams",
+          "code": "function groupAnagrams(strs: string[]): string[][] {\n  const map = new Map<string, string[]>();\n  \n  for (const str of strs) {\n    const key = str.split('').sort().join('');\n    if (!map.has(key)) map.set(key, []);\n    map.get(key)!.push(str);\n  }\n  \n  return Array.from(map.values());\n}",
+          "explanation": "Use sorted string as hash key to group anagrams together. O(n * k log k) where k is max string length."
+        }
+      ]
+    },
+    {
+      "id": "two-pointer",
+      "title": "Two Pointer Technique",
+      "description": "Efficient array/list traversal with two pointers",
+      "content": [
+        "Two Pointer is a technique using two references to traverse data structures, often reducing time complexity from O(n²) to O(n).",
+        "",
+        "## Patterns",
+        "",
+        "**Opposite Ends**: Start from both ends, move towards center",
+        "- Use case: Sorted array problems, palindromes",
+        "",
+        "**Fast and Slow**: Two pointers moving at different speeds",
+        "- Use case: Cycle detection, finding middle",
+        "",
+        "**Sliding Interval**: Two pointers defining a range",
+        "- Use case: Subarrays, substrings"
+      ],
+      "keyPoints": [
+        "Works well on sorted arrays",
+        "Reduces space complexity to O(1)",
+        "Common in array and linked list problems",
+        "Often replaces nested loops"
+      ],
+      "examples": [
+        {
+          "title": "Container With Most Water",
+          "code": "function maxArea(height: number[]): number {\n  let left = 0, right = height.length - 1;\n  let maxArea = 0;\n  \n  while (left < right) {\n    const width = right - left;\n    const h = Math.min(height[left], height[right]);\n    maxArea = Math.max(maxArea, width * h);\n    \n    if (height[left] < height[right]) left++;\n    else right--;\n  }\n  \n  return maxArea;\n}",
+          "explanation": "Use two pointers from both ends. Move the pointer with smaller height to potentially find larger area."
+        }
+      ]
+    },
+    {
+      "id": "sliding-window",
+      "title": "Sliding Window",
+      "description": "Optimize subarray/substring problems",
+      "content": [
+        "Sliding Window maintains a window of elements that satisfies certain conditions, adjusting its size or position as needed.",
+        "",
+        "## Types",
+        "",
+        "**Fixed Size Window**: Window size is constant",
+        "- Use case: Maximum sum of k consecutive elements",
+        "",
+        "**Variable Size Window**: Window expands/shrinks based on condition",
+        "- Use case: Longest substring without repeating characters",
+        "",
+        "## Pattern",
+        "1. Expand window by moving right pointer",
+        "2. Shrink window when condition violated (move left pointer)",
+        "3. Track optimal result while window is valid"
+      ],
+      "keyPoints": [
+        "Reduces O(n²) to O(n)",
+        "Useful for contiguous subarrays/substrings",
+        "Maintain state efficiently (hash map, counters)",
+        "Two pointers define window boundaries"
+      ],
+      "examples": [
+        {
+          "title": "Longest Substring Without Repeating Characters",
+          "code": "function lengthOfLongestSubstring(s: string): number {\n  const seen = new Map<string, number>();\n  let left = 0, maxLen = 0;\n  \n  for (let right = 0; right < s.length; right++) {\n    if (seen.has(s[right])) {\n      left = Math.max(left, seen.get(s[right])! + 1);\n    }\n    seen.set(s[right], right);\n    maxLen = Math.max(maxLen, right - left + 1);\n  }\n  \n  return maxLen;\n}",
+          "explanation": "Expand window with right pointer. When duplicate found, shrink from left. Track max window size."
+        }
+      ]
+    },
+    {
+      "id": "recursion",
+      "title": "Recursion",
+      "description": "Solving problems by calling itself",
+      "content": [
+        "Recursion is a technique where a function calls itself to solve smaller instances of the same problem.",
+        "",
+        "## Key Components",
+        "",
+        "**Base Case**: Stopping condition to prevent infinite recursion",
+        "**Recursive Case**: Function calls itself with modified input",
+        "",
+        "## Types",
+        "",
+        "**Direct Recursion**: Function calls itself",
+        "**Indirect Recursion**: Function A calls B, B calls A",
+        "**Tail Recursion**: Recursive call is last operation (optimizable)",
+        "",
+        "## Complexity",
+        "- **Time**: Often O(branches^depth)",
+        "- **Space**: O(depth) for call stack"
+      ],
+      "keyPoints": [
+        "Every recursion can be converted to iteration",
+        "Understand call stack behavior",
+        "Watch out for stack overflow",
+        "Memoization converts to Dynamic Programming"
+      ],
+      "examples": [
+        {
+          "title": "Fibonacci (Memoized)",
+          "code": "function fib(n: number, memo: Map<number, number> = new Map()): number {\n  if (n <= 1) return n;\n  if (memo.has(n)) return memo.get(n)!;\n  \n  const result = fib(n - 1, memo) + fib(n - 2, memo);\n  memo.set(n, result);\n  return result;\n}",
+          "explanation": "Classic recursion with memoization. Cache results to avoid recomputation. Time: O(n), Space: O(n)."
+        }
+      ]
+    },
+    {
+      "id": "greedy",
+      "title": "Greedy Algorithms",
+      "description": "Make locally optimal choices at each step",
+      "content": [
+        "Greedy algorithms make the locally optimal choice at each step, hoping to find a global optimum.",
+        "",
+        "## Characteristics",
+        "",
+        "**Greedy Choice Property**: Local optimum leads to global optimum",
+        "**Optimal Substructure**: Problem can be broken into subproblems",
+        "",
+        "## When Greedy Works",
+        "- Activity selection",
+        "- Huffman coding",
+        "- Dijkstra's shortest path",
+        "- Fractional knapsack",
+        "",
+        "**Warning**: Greedy doesn't always give optimal solution (e.g., 0/1 knapsack needs DP)"
+      ],
+      "keyPoints": [
+        "Faster than DP but not always correct",
+        "Prove correctness before using",
+        "Sort data first in many problems",
+        "Exchange argument proves optimality"
+      ],
+      "examples": [
+        {
+          "title": "Jump Game",
+          "code": "function canJump(nums: number[]): boolean {\n  let maxReach = 0;\n  \n  for (let i = 0; i < nums.length; i++) {\n    if (i > maxReach) return false;\n    maxReach = Math.max(maxReach, i + nums[i]);\n    if (maxReach >= nums.length - 1) return true;\n  }\n  \n  return true;\n}",
+          "explanation": "Greedily track farthest reachable index. If current position exceeds max reach, can't proceed."
+        }
+      ]
+    },
+    {
+      "id": "bitwise",
+      "title": "Bitwise Operations",
+      "description": "Manipulate data at the bit level",
+      "content": [
+        "Bitwise operations manipulate individual bits of numbers, enabling efficient solutions to certain problems.",
+        "",
+        "## Basic Operations",
+        "",
+        "**AND (&)**: Both bits 1 → 1",
+        "**OR (|)**: At least one bit 1 → 1",
+        "**XOR (^)**: Bits different → 1. Same → 0",
+        "**NOT (~)**: Flip all bits",
+        "**Left Shift (<<)**: a << b = a * 2^b",
+        "**Right Shift (>>)**: a >> b = a / 2^b",
+        "",
+        "## Common Tricks",
+        "- Check if power of 2: `n & (n-1) === 0`",
+        "- Toggle bit: `x ^= (1 << i)`",
+        "- Clear lowest set bit: `x & (x-1)`"
+      ],
+      "keyPoints": [
+        "XOR is commutative and associative",
+        "x ^ x = 0, x ^ 0 = x",
+        "Often O(1) space solutions",
+        "Useful for subsets and bitmasks"
+      ],
+      "examples": [
+        {
+          "title": "Single Number",
+          "code": "function singleNumber(nums: number[]): number {\n  let result = 0;\n  for (const num of nums) {\n    result ^= num;\n  }\n  return result;\n}",
+          "explanation": "XOR all numbers. Duplicates cancel out (a ^ a = 0), leaving the single number. O(n) time, O(1) space."
+        }
+      ]
+    },
+    {
+      "id": "deque",
+      "title": "Deque (Double-Ended Queue)",
+      "description": "Insert and delete from both ends",
+      "content": [
+        "A Deque (Double-Ended Queue) allows insertion and deletion at both front and rear in O(1) time.",
+        "",
+        "## Key Operations",
+        "",
+        "**addFront/addRear**: O(1) - Insert at front/rear",
+        "**removeFront/removeRear**: O(1) - Delete from front/rear",
+        "**peekFront/peekRear**: O(1) - View without removing",
+        "",
+        "## Monotonic Deque",
+        "Maintain elements in increasing/decreasing order. Useful for:",
+        "- Sliding window maximum/minimum",
+        "- Next greater element"
+      ],
+      "keyPoints": [
+        "More flexible than stack or queue",
+        "Can simulate both stack and queue",
+        "Monotonic deque for sliding window problems",
+        "Implementation: circular array or doubly linked list"
+      ],
+      "examples": [
+        {
+          "title": "Sliding Window Maximum (Monotonic Deque)",
+          "code": "function maxSlidingWindow(nums: number[], k: number): number[] {\n  const result: number[] = [];\n  const deque: number[] = []; // stores indices\n  \n  for (let i = 0; i < nums.length; i++) {\n    // Remove indices outside window\n    while (deque.length && deque[0] < i - k + 1) deque.shift();\n    \n    // Remove smaller elements (maintain decreasing order)\n    while (deque.length && nums[deque[deque.length - 1]] < nums[i]) {\n      deque.pop();\n    }\n    \n    deque.push(i);\n    if (i >= k - 1) result.push(nums[deque[0]]);\n  }\n  \n  return result;\n}",
+          "explanation": "Monotonic decreasing deque. Front always has max of current window. O(n) time."
+        }
+      ]
+    }
+  ],
+  "quizzes": [
+    {
+      "id": "dsa-fundamentals",
+      "title": "DSA Fundamentals Quiz",
+      "description": "Test your understanding of basic data structures and algorithms",
+      "passingScore": 70,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the time complexity of accessing an element in an array by index?",
+          "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n²)"
+          ],
+          "correctIndex": 0,
+          "explanation": "Arrays provide constant-time O(1) access because elements are stored in contiguous memory locations, allowing direct calculation of memory address.",
+          "timeLimit": 20
+        },
+        {
+          "id": "q2",
+          "question": "Which technique is best for finding if a sorted array contains two numbers that sum to a target?",
+          "options": [
+            "Brute Force",
+            "Two Pointers",
+            "Binary Search",
+            "Dynamic Programming"
+          ],
+          "correctIndex": 1,
+          "explanation": "Two pointers technique works in O(n) time for sorted arrays. Start with pointers at both ends and move them based on the current sum.",
+          "timeLimit": 25
+        },
+        {
+          "id": "q3",
+          "question": "What is the space complexity of reversing a linked list iteratively?",
+          "options": [
+            "O(n)",
+            "O(log n)",
+            "O(1)",
+            "O(n²)"
+          ],
+          "correctIndex": 2,
+          "explanation": "Iterative reversal only uses a constant number of pointers (prev, curr, next), resulting in O(1) space complexity.",
+          "timeLimit": 20
+        },
+        {
+          "id": "q4",
+          "question": "Which traversal gives sorted output for a Binary Search Tree?",
+          "options": [
+            "Preorder",
+            "Inorder",
+            "Postorder",
+            "Level-order"
+          ],
+          "correctIndex": 1,
+          "explanation": "Inorder traversal (Left, Root, Right) visits BST nodes in ascending order because left subtree values < root < right subtree values.",
+          "timeLimit": 20
+        },
+        {
+          "id": "q5",
+          "question": "What are the two key properties required for Dynamic Programming?",
+          "options": [
+            "Sorting and Searching",
+            "Optimal Substructure and Overlapping Subproblems",
+            "Divide and Conquer",
+            "Greedy Choice and Recursion"
+          ],
+          "correctIndex": 1,
+          "explanation": "DP requires: 1) Optimal Substructure - optimal solution uses optimal solutions to subproblems, 2) Overlapping Subproblems - same subproblems solved multiple times.",
+          "timeLimit": 25
+        },
+        {
+          "id": "q6",
+          "question": "What is the average time complexity of Quick Sort?",
+          "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n²)",
+            "O(log n)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Quick Sort has O(n log n) average case. It partitions around a pivot, recursively sorting subarrays. Worst case is O(n²) with poor pivot selection.",
+          "timeLimit": 20
+        },
+        {
+          "id": "q7",
+          "question": "Which sorting algorithm is stable AND guarantees O(n log n) time?",
+          "options": [
+            "Quick Sort",
+            "Heap Sort",
+            "Merge Sort",
+            "Selection Sort"
+          ],
+          "correctIndex": 2,
+          "explanation": "Merge Sort is stable (preserves order of equal elements) and always runs in O(n log n). Quick Sort and Heap Sort are not stable.",
+          "timeLimit": 25
+        },
+        {
+          "id": "q8",
+          "question": "What is the time complexity of inserting an element into a heap?",
+          "options": [
+            "O(1)",
+            "O(log n)",
+            "O(n)",
+            "O(n log n)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Heap insert is O(log n) because the element is added at the end and bubbled up. The heap height is log n, so at most log n swaps are needed.",
+          "timeLimit": 20
+        },
+        {
+          "id": "q9",
+          "question": "To find the K largest elements, which heap type should you use?",
+          "options": [
+            "Max Heap of size N",
+            "Min Heap of size K",
+            "Max Heap of size K",
+            "Min Heap of size N"
+          ],
+          "correctIndex": 1,
+          "explanation": "Use a Min Heap of size K. The smallest of the K largest stays at the root. If a new element is larger than root, replace it. Final heap contains K largest.",
+          "timeLimit": 25
+        },
+        {
+          "id": "q10",
+          "question": "What is the typical time complexity of backtracking algorithms?",
+          "options": [
+            "O(n)",
+            "O(n log n)",
+            "O(n²)",
+            "O(2^n) or O(n!)"
+          ],
+          "correctIndex": 3,
+          "explanation": "Backtracking explores all possibilities, leading to exponential time: O(2^n) for subsets, O(n!) for permutations. Pruning helps but doesn't change worst case.",
+          "timeLimit": 25
+        },
+        {
+          "id": "q11",
+          "question": "In backtracking, what does 'pruning' mean?",
+          "options": [
+            "Removing elements from the result",
+            "Skipping invalid paths early",
+            "Sorting the input first",
+            "Using memoization"
+          ],
+          "correctIndex": 1,
+          "explanation": "Pruning means cutting off search branches early when we detect they cannot lead to a valid solution. This significantly improves performance.",
+          "timeLimit": 20
+        },
+        {
+          "id": "q12",
+          "question": "What is the time complexity of building a heap from an array?",
+          "options": [
+            "O(n log n)",
+            "O(n)",
+            "O(n²)",
+            "O(log n)"
+          ],
+          "correctIndex": 1,
+          "explanation": "Heapify is O(n), not O(n log n)! This is because most nodes are near the bottom and require few swaps. The mathematical proof involves summing a geometric series.",
+          "timeLimit": 25
+        }
+      ]
+    }
+  ]
+}
