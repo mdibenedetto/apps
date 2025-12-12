@@ -1,0 +1,249 @@
+{
+  "id": "behavioral",
+  "title": "Behavioral Questions",
+  "description": "Master the STAR method and ace behavioral interviews",
+  "icon": "Users",
+  "color": "behavioral",
+  "introduction": "Behavioral interviews assess your soft skills, leadership potential, and cultural fit. Companies like Amazon, Google, and Microsoft heavily weight behavioral performance. The STAR method provides a structured framework for delivering compelling, concise answers that showcase your accomplishments.",
+  "topics": [
+    {
+      "id": "star-method",
+      "title": "The STAR Method",
+      "description": "A structured approach to behavioral questions",
+      "content": [
+        "STAR is an acronym that stands for Situation, Task, Action, and Result. This framework helps you structure your responses in a clear, compelling way that interviewers can easily follow.",
+        "",
+        "## The Framework",
+        "",
+        "**S - Situation**",
+        "Set the scene. Describe the context and background. Keep it brief but provide enough detail for understanding.",
+        "",
+        "**T - Task**",
+        "Explain your specific responsibility or the challenge you faced. What was expected of you?",
+        "",
+        "**A - Action**",
+        "This is the heart of your answer. Describe the specific actions YOU took. Use \"I\" not \"we\". Be detailed about your approach.",
+        "",
+        "**R - Result**",
+        "Share the outcomes. Quantify when possible (%, $, time saved). Include what you learned."
+      ],
+      "keyPoints": [
+        "Focus on YOUR actions, not the team's",
+        "Quantify results whenever possible",
+        "Keep answers to 2-3 minutes",
+        "Prepare 6-8 versatile stories",
+        "Practice out loud, not just in your head"
+      ],
+      "examples": [
+        {
+          "title": "Leadership Example",
+          "explanation": "**Situation**: Our team of 5 engineers was behind schedule on a critical product launch, with only 3 weeks until the deadline.\n\n**Task**: As the tech lead, I needed to get us back on track while maintaining code quality.\n\n**Action**: I reorganized our sprint, identified critical path items, and paired senior with junior developers. I also negotiated with stakeholders to defer non-essential features.\n\n**Result**: We launched on time with 95% of planned features. The remaining 5% shipped two weeks later. Post-launch bugs were 40% lower than our previous release."
+        },
+        {
+          "title": "Conflict Resolution Example",
+          "explanation": "**Situation**: A senior colleague and I disagreed about the database architecture for a new microservice.\n\n**Task**: I needed to either convince them of my approach or find a compromise without damaging our working relationship.\n\n**Action**: I scheduled a 1:1 meeting, listened to understand their concerns fully, then proposed a proof-of-concept comparison. We agreed to test both approaches with production-like data.\n\n**Result**: The data showed my approach was 30% faster, but theirs was more maintainable. We combined both: my indexing strategy with their schema design. We now collaborate effectively and built a better solution together."
+        }
+      ],
+      "diagrams": [
+        {
+          "url": "/diagrams/star-method.png",
+          "caption": "The STAR Method Framework",
+          "alt": "Visual diagram showing the four components of STAR: Situation, Task, Action, Result"
+        }
+      ]
+    },
+    {
+      "id": "common-questions",
+      "title": "Common Behavioral Questions",
+      "description": "Prepare for frequently asked questions",
+      "content": [
+        "While every company has unique questions, certain themes appear repeatedly. Understanding these categories helps you prepare versatile stories.",
+        "",
+        "## Question Categories",
+        "",
+        "**Leadership & Influence**",
+        "- Tell me about a time you led a team",
+        "- Describe a situation where you influenced without authority",
+        "- How do you handle team conflicts?",
+        "",
+        "**Problem Solving & Challenges**",
+        "- Tell me about a difficult problem you solved",
+        "- Describe a time you failed",
+        "- How do you handle ambiguity?",
+        "",
+        "**Collaboration & Communication**",
+        "- Tell me about working with difficult colleagues",
+        "- Describe a time you had to explain something complex",
+        "- How do you handle disagreements?",
+        "",
+        "**Growth & Learning**",
+        "- Tell me about feedback you received",
+        "- What's your biggest weakness?",
+        "- Describe a time you had to learn quickly"
+      ],
+      "keyPoints": [
+        "Prepare stories that cover multiple themes",
+        "Include at least one failure story with learnings",
+        "Show self-awareness and growth mindset",
+        "Tailor examples to company values"
+      ],
+      "examples": [
+        {
+          "title": "Amazon Leadership Principle: Ownership",
+          "explanation": "**Question**: Tell me about a time you went above and beyond your job responsibilities.\n\n**Strong Answer Elements**:\n- Noticed a problem outside your scope\n- Took initiative without being asked\n- Followed through to resolution\n- Had measurable positive impact\n- Would do it again"
+        }
+      ]
+    },
+    {
+      "id": "company-research",
+      "title": "Company-Specific Preparation",
+      "description": "Tailor your answers to company culture",
+      "content": [
+        "Different companies emphasize different values. Tailoring your stories to match company culture dramatically increases your success rate.",
+        "",
+        "## Company Approaches",
+        "",
+        "**Amazon**",
+        "- 16 Leadership Principles are central",
+        "- Prepare 2-3 stories per principle",
+        "- Data-driven results are crucial",
+        "- Customer obsession is paramount",
+        "",
+        "**Google**",
+        "- Googleyness and collaboration",
+        "- Emphasis on innovation",
+        "- How you handle ambiguity",
+        "- Technical problem-solving in behavioral context",
+        "",
+        "**Meta**",
+        "- Move fast mindset",
+        "- Impact orientation",
+        "- Openness and transparency",
+        "- Building community",
+        "",
+        "**Microsoft**",
+        "- Growth mindset is key",
+        "- Collaboration across teams",
+        "- Customer focus",
+        "- Inclusive culture"
+      ],
+      "keyPoints": [
+        "Research company values before interviews",
+        "Map your stories to their principles",
+        "Use their language in your answers",
+        "Show genuine interest in their mission"
+      ]
+    },
+    {
+      "id": "body-language",
+      "title": "Delivery & Presence",
+      "description": "Non-verbal communication matters",
+      "content": [
+        "Your delivery is as important as your content. Strong presence and confident delivery reinforce your message and leave a lasting impression.",
+        "",
+        "## Key Elements",
+        "",
+        "**Eye Contact**",
+        "- Maintain natural eye contact",
+        "- In video calls, look at the camera when speaking",
+        "- Break occasionally to avoid staring",
+        "",
+        "**Voice**",
+        "- Speak clearly and at moderate pace",
+        "- Vary tone to maintain interest",
+        "- Pause for emphasis on key points",
+        "",
+        "**Body Language**",
+        "- Sit up straight but relaxed",
+        "- Use hand gestures naturally",
+        "- Smile genuinely when appropriate",
+        "",
+        "**Energy**",
+        "- Show enthusiasm for your examples",
+        "- Match interviewer's energy level",
+        "- End answers confidently"
+      ],
+      "keyPoints": [
+        "Practice with video recording",
+        "Get feedback from others",
+        "Manage nervous habits",
+        "Prepare but don't memorize word-for-word"
+      ]
+    }
+  ],
+  "quizzes": [
+    {
+      "id": "behavioral-basics",
+      "title": "Behavioral Interview Essentials",
+      "description": "Test your knowledge of behavioral interview best practices",
+      "passingScore": 70,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What does the 'A' in STAR stand for?",
+          "options": [
+            "Achievement",
+            "Action",
+            "Analysis",
+            "Assessment"
+          ],
+          "correctIndex": 1,
+          "explanation": "A stands for Action - the specific steps YOU took to address the situation. This is the most important part of your answer.",
+          "timeLimit": 15
+        },
+        {
+          "id": "q2",
+          "question": "Which part of STAR should be the longest in your response?",
+          "options": [
+            "Situation",
+            "Task",
+            "Action",
+            "Result"
+          ],
+          "correctIndex": 2,
+          "explanation": "The Action section should be the longest as it showcases YOUR specific contributions, decisions, and skills. Aim for 50-60% of your answer.",
+          "timeLimit": 20
+        },
+        {
+          "id": "q3",
+          "question": "How long should a typical STAR answer be?",
+          "options": [
+            "30 seconds to 1 minute",
+            "2-3 minutes",
+            "5-7 minutes",
+            "10+ minutes"
+          ],
+          "correctIndex": 1,
+          "explanation": "STAR answers should be 2-3 minutes. Long enough to be comprehensive, short enough to maintain engagement. Practice timing yourself!",
+          "timeLimit": 20
+        },
+        {
+          "id": "q4",
+          "question": "When describing a team project, you should primarily use:",
+          "options": [
+            "\"We\" to show teamwork",
+            "\"I\" to show your contributions",
+            "\"They\" to credit others",
+            "\"The team\" to be humble"
+          ],
+          "correctIndex": 1,
+          "explanation": "Use \"I\" to clearly show YOUR specific contributions. Interviewers want to understand what YOU did, not what the team accomplished collectively.",
+          "timeLimit": 20
+        },
+        {
+          "id": "q5",
+          "question": "How many stories should you prepare for behavioral interviews?",
+          "options": [
+            "1-2 perfect stories",
+            "6-8 versatile stories",
+            "15-20 stories",
+            "No preparation needed"
+          ],
+          "correctIndex": 1,
+          "explanation": "Prepare 6-8 versatile stories that can be adapted to different questions. This gives you flexibility without overwhelming preparation.",
+          "timeLimit": 20
+        }
+      ]
+    }
+  ]
+}
